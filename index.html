@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вариант 12</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <header class="sidebar-header">
+          <a href="#" class="brand-logo">
+            <img src="images/logo.png" alt="logo" />
+            <h2>Вариант 12</h2>
+          </a>
+          <div class="search-bar">
+            <input type="search" placeholder="Поиск" />
+          </div>
+        </header>
+
+        <nav class="sidebar-nav">
+          <ul>
+            <li class="active">
+              <a href="#">Все проекты</a>
+            </li>
+
+            <li><a href="#">Синий проект</a></li>
+            <li><a href="#">Зелёный проект</a></li>
+            <li><a href="#">Красный проект</a></li>
+            <li><a href="#">Розовый проект</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <footer class="sidebar-footer">
+        <p>© Вариант 12.</p>
+        <p>Сигорских Дмитрий, группа АС-23-1</p>
+      </footer>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="main-header">
+        <h1>Все проекты</h1>
+
+        <!-- Внутри .main-header -->
+        <details class="sort-dropdown">
+          <summary class="sort-button">
+            <span id="current-sort">По умолчанию</span>
+            <svg
+              width="12"
+              height="7"
+              viewBox="0 0 12 7"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L6 6L11 1"
+                stroke="#354153"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </summary>
+
+          <ul class="sort-options">
+            <!-- data-sort - это атрибут, который мы будем читать в JS -->
+            <li data-sort="default" class="active">По умолчанию</li>
+            <li data-sort="asc">Истекают раньше</li>
+            <li data-sort="desc">Истекают позже</li>
+          </ul>
+        </details>
+      </header>
+
+      <main class="tasks">
+        <article class="task-card">
+          <img src="images/blue-line.png" />
+          <div class="card-body">
+            <h2>Название первой задачи</h2>
+            <p class="card-description">Описание задачи</p>
+            <dl class="card-details">
+              <div class="card-details__due">
+                <dt>Истекает:</dt>
+                <dd>16 июля 2023 года</dd>
+              </div>
+              <div class="card-details-respons">
+                <dt>Ответственный:</dt>
+                <dd>Сигорских Дмитрий</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <img src="images/green-line.png" />
+          <div class="card-body">
+            <h2>Название второй задачи</h2>
+            <p class="card-description">Описание задачи</p>
+            <dl class="card-details">
+              <div class="card-details-due">
+                <dt>Истекает:</dt>
+                <dd>19 июля 2023 года</dd>
+              </div>
+              <div class="card-details-respons">
+                <dt>Ответственный:</dt>
+                <dd>Сигорских Дмитрий</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <img src="images/red-line.png" />
+          <div class="card-body">
+            <h2>Название третей задачи</h2>
+            <p class="card-description">Описание задачи</p>
+            <dl class="card-details">
+              <div class="card-details-due">
+                <dt>Истекает:</dt>
+                <dd>08 августа 2023 года</dd>
+              </div>
+              <div class="card-details-respons">
+                <dt>Ответственный:</dt>
+                <dd>Сигорских Дмитрий</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="task-card">
+          <img src="images/pink-line.png" />
+          <div class="card-body">
+            <h2>Название четвертой задачи</h2>
+            <p class="card-description">Описание задачи</p>
+            <dl class="card-details">
+              <div class="card-details-due">
+                <dt>Истекает:</dt>
+                <dd>19 декабря 2023 года</dd>
+              </div>
+              <div class="card-details-respons">
+                <dt>Ответственный:</dt>
+                <dd>Сигорских Дмитрий</dd>
+              </div>
+            </dl>
+          </div>
+        </article>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

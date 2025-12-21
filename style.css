@@ -24,8 +24,13 @@ body {
 }
 
 .sidebar {
-  flex-basis: 280px;
-  flex-shrink: 0;
+  width: 15%;
+  min-width: 240px;
+  max-width: 320px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+
   background-color: var(--color-background);
   border-right: 1px solid var(--color-border);
   display: flex;
@@ -33,6 +38,7 @@ body {
   justify-content: space-between;
   padding: 16px;
   padding-top: 35px;
+  flex-shrink: 0;
 }
 
 .brand-logo {
@@ -65,6 +71,15 @@ body {
   border-radius: 8px;
   padding: 0 16px;
   font-size: 16px;
+  outline: none;
+
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.search-bar input:focus {
+  border-color: var(--color-text-muted);
+  box-shadow: 0 0 0 4px rgba(102, 112, 133, 0.1);
+  transform: scale(1.01);
 }
 
 .search-bar {
@@ -73,6 +88,9 @@ body {
 
 .sidebar-nav ul {
   list-style: none;
+}
+.sidebar-nav li {
+  transition: background-color 0.2s ease;
 }
 
 .sidebar-nav a {
@@ -83,6 +101,17 @@ body {
   color: var(--color-text-secondary);
   font-weight: 500;
   font-size: 16px;
+
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav li:hover a {
+  transform: translateX(5px);
+  color: var(--color-text-primary);
+}
+
+.sidebar-nav li.active {
+  background-color: var(--color-background-active);
 }
 
 .sidebar-nav li:first-child {
@@ -103,11 +132,12 @@ body {
 }
 
 .sidebar-nav li.active {
-    background-color: var(--color-background-active); 
-    border-radius: 8px;
+  background-color: var(--color-background-active);
+  border-radius: 8px;
 }
+
 .sidebar-nav li.active a {
-    color: var(--color-text-primary); 
+  color: var(--color-text-primary);
 }
 
 .sidebar-footer p {
@@ -139,56 +169,62 @@ body {
 }
 
 .sort-dropdown {
-    position: relative;
+  position: relative;
 }
 
 .sort-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: white;
-    cursor: pointer;
-    list-style: none; /* Убираем треугольник */
-    font-weight: 600;
-    color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--color-text-secondary);
 }
-.sort-button::-webkit-details-marker { display: none; }
+
+.sort-button svg {
+  transition: transform 0.3s ease;
+}
+
+.sort-dropdown[open] .sort-button svg {
+  transform: rotate(-180deg);
+}
 
 .sort-options {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: 200px;
-    background: white;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 8px;
-    margin-top: 5px;
-    list-style: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 10;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 200px;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 5px;
+  list-style: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
 .sort-options li {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 6px;
-    font-size: 14px;
-    color: var(--color-text-secondary);
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
 }
 
 .sort-options li:hover {
-    background-color: var(--color-background-light);
+  background-color: var(--color-background-light);
 }
 
-/* Стиль для ВЫБРАННОГО элемента */
 .sort-options li.active {
-    background-color: var(--color-background-active); /* Серый фон */
-    color: var(--color-text-primary);
-    font-weight: 500;
+  background-color: var(--color-background-active);
+  color: var(--color-text-primary);
+  font-weight: 500;
 }
 
 .tasks {
@@ -204,6 +240,20 @@ body {
   border-radius: 8px;
   flex-basis: calc((100% - 24px * 3) / 4);
   flex-grow: 1;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.task-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--color-text-muted);
+}
+
+.task-card:hover img {
+  filter: brightness(1.5);
 }
 
 .task-card img {
@@ -211,6 +261,7 @@ body {
   height: 8px;
   margin-left: 20px;
   margin-top: 25px;
+  transition: filter 0.3s ease;
 }
 
 .card-body {
@@ -225,6 +276,7 @@ body {
   font-size: 24px;
   line-height: 32px;
 }
+
 .card-description {
   font-size: 16px;
   font-weight: 400;
@@ -257,4 +309,102 @@ body {
   font-size: 16px;
   line-height: 24px;
   color: var(--color-text-primary);
+}
+
+@media (max-width: 1024px) {
+  .task-card {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    height: auto;
+    position: static;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 20px;
+  }
+
+  .brand-logo {
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .sidebar-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sidebar-nav li:not(:first-child),
+  .sidebar-nav li:first-child {
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-header {
+    padding: 15px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .main-header h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  .tasks {
+    padding: 15px;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-card {
+    flex-basis: 100%;
+  }
+
+  .card-body h2 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.task-card {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  color: var(--color-text-muted);
+  font-size: 18px;
+  animation: fadeInUp 0.5s ease-out forwards;
 }

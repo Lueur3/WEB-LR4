@@ -36,11 +36,22 @@ const projects = [
 const tasksContainer = document.querySelector(".tasks");
 
 function renderTasks(list) {
+
   tasksContainer.innerHTML = "";
 
-  for (let project of list) {
+  if (list.length === 0) {
+    tasksContainer.innerHTML = `
+      <div class="no-results">
+        <p>По вашему запросу ничего не найдено.</p>
+      </div>
+    `;
+    return;
+  }
+
+  list.forEach((project, index) => {
+    const delay = index * 0.1;
     const taskHtml = `
-            <article class="task-card">
+            <article class="task-card" style="animation-delay: ${delay}s">
                 <img src="${project.img}" alt="Color line" />
                 <div class="card-body">
                     <h2>${project.title}</h2>
@@ -58,9 +69,8 @@ function renderTasks(list) {
                 </div>
             </article>
         `;
-
     tasksContainer.insertAdjacentHTML("beforeend", taskHtml);
-  }
+  });
 }
 
 renderTasks(projects);
@@ -114,52 +124,58 @@ searchInput.addEventListener("input", function () {
   renderTasks(foundProjects);
 });
 
-
 const months = {
-    'января': 0, 'февраля': 1, 'марта': 2, 'апреля': 3, 'мая': 4, 'июня': 5,
-    'июля': 6, 'августа': 7, 'сентября': 8, 'октября': 9, 'ноября': 10, 'декабря': 11
+  января: 0,
+  февраля: 1,
+  марта: 2,
+  апреля: 3,
+  мая: 4,
+  июня: 5,
+  июля: 6,
+  августа: 7,
+  сентября: 8,
+  октября: 9,
+  ноября: 10,
+  декабря: 11,
 };
 
-function parseRussianDate(dateString) {
-    const parts = dateString.split(' '); 
-    
-    const day = parseInt(parts[0]);
-    const month = months[parts[1]]; 
-    const year = parseInt(parts[2]);
+function parseDate(dateString) {
+  const parts = dateString.split(" ");
 
-    return new Date(year, month, day).getTime();
+  const day = parseInt(parts[0]);
+  const month = months[parts[1]];
+  const year = parseInt(parts[2]);
+
+  return new Date(year, month, day).getTime();
 }
 
-const sortItems = document.querySelectorAll('.sort-options li');
-const currentSortLabel = document.querySelector('#current-sort');
-const sortDropdown = document.querySelector('.sort-dropdown');
+const sortItems = document.querySelectorAll(".sort-options li");
+const currentSortLabel = document.querySelector("#current-sort");
+const sortDropdown = document.querySelector(".sort-dropdown");
 
-const defaultProjectsOrder = [...projects]; 
+const defaultProjectsOrder = [...projects];
 
 for (let item of sortItems) {
-    item.addEventListener('click', () => {
-        
-        sortItems.forEach(el => el.classList.remove('active'));
-        item.classList.add('active');
-        currentSortLabel.textContent = item.textContent;
-        sortDropdown.removeAttribute('open');
+  item.addEventListener("click", () => {
+    sortItems.forEach((el) => el.classList.remove("active"));
+    item.classList.add("active");
+    currentSortLabel.textContent = item.textContent;
+    sortDropdown.removeAttribute("open");
 
-        const sortType = item.getAttribute('data-sort');
+    const sortType = item.getAttribute("data-sort");
 
-        if (sortType === 'default') {
-            projects.sort((a, b) => a.id - b.id);
-        } 
-        else if (sortType === 'asc') {
-            projects.sort((a, b) => {
-                return parseRussianDate(a.date) - parseRussianDate(b.date);
-            });
-        } 
-        else if (sortType === 'desc') {
-            projects.sort((a, b) => {
-                return parseRussianDate(b.date) - parseRussianDate(a.date);
-            });
-        }
+    if (sortType === "default") {
+      projects.sort((a, b) => a.id - b.id);
+    } else if (sortType === "asc") {
+      projects.sort((a, b) => {
+        return parseDate(a.date) - parseDate(b.date);
+      });
+    } else if (sortType === "desc") {
+      projects.sort((a, b) => {
+        return parseDate(b.date) - parseDate(a.date);
+      });
+    }
 
-        renderTasks(projects);
-    });
+    renderTasks(projects);
+  });
 }

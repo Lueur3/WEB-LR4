@@ -153,7 +153,6 @@ const sortItems = document.querySelectorAll(".sort-options li");
 const currentSortLabel = document.querySelector("#current-sort");
 const sortDropdown = document.querySelector(".sort-dropdown");
 
-const defaultProjectsOrder = [...projects];
 
 for (let item of sortItems) {
   item.addEventListener("click", () => {
